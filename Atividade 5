@@ -1,0 +1,89 @@
+#include <GLFW/glfw3.h>
+
+int main(void)
+{
+
+    const int LARGURA = 800;
+    const int ALTURA = 600;
+    GLFWwindow* window;
+
+    /* Initialize the library */
+    if (!glfwInit())
+        return -1;
+
+    /* Create a windowed mode window and its OpenGL context */
+    window = glfwCreateWindow(LARGURA, ALTURA, "Hello World", NULL, NULL);
+    if (!window)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
+
+    glClearColor(0.0, 0.15, 0.25, 1.0);
+    glLineWidth(4.f);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-10.0,10.0,-10.0,10.0,1.0,-1.0);
+
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
+    {
+        /* Poll for and process events */
+        glfwPollEvents();
+
+        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        {
+            glfwSetWindowShouldClose(window, GLFW_TRUE);
+        }
+        /* Render here */
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glLineWidth(0.5);
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex2f(2.0f, 5.0f);
+        glVertex2f(0.0f, 1.0f);
+        glVertex2f(4.0f, 1.0f);
+        glEnd();
+
+        glFlush();
+
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex2f(-4.0f, 5.0f);
+        glVertex2f(-6.0f, 1.0f);
+        glVertex2f(-2.0f, 1.0f);
+        glEnd();
+
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex2f(-3.5f, -2.0f);
+        glVertex2f(-5.0f, -5.0f);
+        glVertex2f(-2.0f, -5.0f);
+        glEnd();
+
+        glBegin(GL_TRIANGLES);
+        glColor3f(0.0f, 1.0f, 0.0f);
+        glVertex2f(3.0f, -2.0f);
+        glVertex2f(2.0f, -5.0f);
+        glVertex2f(4.0f, -5.0f);
+        glEnd();
+
+
+        glFlush();
+
+
+        /* Swap front and back buffers */
+        glfwSwapBuffers(window);
+    }
+
+    glfwTerminate();
+    return 0;
+}
